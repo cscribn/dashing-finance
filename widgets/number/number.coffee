@@ -3,8 +3,9 @@ class Dashing.Number extends Dashing.Widget
 
   @accessor 'difference', ->
     if @get('last')
-      last = parseInt(@get('last'))
-      current = parseInt(@get('current'))
+      last = @get('last')
+      current = @get('current')
+      current = current.toString().replace /,/g, ''
       if last != 0
         diff = Math.abs(Math.round((current - last) / last * 100))
         "#{diff}%"
@@ -13,12 +14,17 @@ class Dashing.Number extends Dashing.Widget
 
   @accessor 'arrow', ->
     if @get('last')
-      if parseInt(@get('current')) > parseInt(@get('last')) then 'icon-arrow-up' else 'icon-arrow-down'
+      current = @get('current')
+      current = current.toString().replace /,/g, ''
+      if current >= @get('last') then 'icon-arrow-up' else 'icon-arrow-down'
+
+  ready: ->
+    @refreshWidgetStatus()
 
   onData: (data) ->
-    if data.status
-      # clear existing "status-*" classes
-      $(@get('node')).attr 'class', (i,c) ->
-        c.replace /\bstatus-\S+/g, ''
-      # add new class
-      $(@get('node')).addClass "status-#{data.status}"
+    @refreshWidgetStatus()
+
+  refreshWidgetStatus: =>
+    node = $(@node)
+    node.removeClass "down"
+    node.addClass(@get('status').toLowerCase())
