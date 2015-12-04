@@ -14,7 +14,7 @@ def calc_send(id, title, current, ytd_return, moreinfo)
 	if current < last
 		status = 'down'
 	end
-	
+
 	current = ('%.2f') % current
 	current = current.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
 	send_event(id, { title: title, current: current, last: last, moreinfo: moreinfo, status: status })
@@ -22,15 +22,15 @@ end
 
 def do_job
 	cnn_etf('vt', 'World Stocks');
-	
+
 	f = ApmexGoldFinanceYtd.new({ :symbol => 'Gold', :friendly_name => 'Gold', :decimal_places => 2, :price_last_year => 1183.90 })
 	q = ApmexGoldQuoteOnly.new({ :symbol => 'oz', :friendly_name => 'Gold', :decimal_places => 2 })
-	calc_send(f.symbol.downcase, f.friendly_name, q.quote, f.ytd_return, f.symbol)
-	
+	calc_send(f.symbol.downcase, f.friendly_name, q.quote, f.ytd_return, 'per oz')
+
 	f = ApmexSilverFinanceYtd.new({ :symbol => 'Silver', :friendly_name => 'Silver', :decimal_places => 2, :price_last_year => 15.56 })	
 	q = ApmexSilverQuoteOnly.new({ :symbol => 'oz', :friendly_name => 'Silver', :decimal_places => 2 })
-	calc_send(f.symbol.downcase, f.friendly_name, q.quote, f.ytd_return, f.symbol)
-	
+	calc_send(f.symbol.downcase, f.friendly_name, q.quote, f.ytd_return, 'per oz')
+
 	cnn_etf('vti', 'US Stocks');	
 	cnn_etf('vxus', 'Foreign Stocks');
 	cnn_etf('sgdm', 'Gold Miners');
@@ -42,6 +42,6 @@ SCHEDULER.in '1' do |job|
 	do_job
 end
 
-SCHEDULER.cron '0 8-15 * * *', allow_overlapping: false do |job|
+SCHEDULER.cron '* 8-15 * * *', allow_overlapping: false do |job|
 	do_job
 end
