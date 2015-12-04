@@ -20,7 +20,7 @@ def calc_send(id, title, current, ytd_return, moreinfo)
 	send_event(id, { title: title, current: current, last: last, moreinfo: moreinfo, status: status })
 end
 
-SCHEDULER.every '1m', :first_in => 0, allow_overlapping: false do |job|
+def do_job
 	cnn_etf('vt', 'World Stocks');
 	
 	f = ApmexGoldFinanceYtd.new({ :symbol => 'Gold', :friendly_name => 'Gold', :decimal_places => 2, :price_last_year => 1183.90 })
@@ -36,4 +36,12 @@ SCHEDULER.every '1m', :first_in => 0, allow_overlapping: false do |job|
 	cnn_etf('sgdm', 'Gold Miners');
 	cnn_etf('bwz', 'Foreign Cash');
 	cnn_etf('xbt', 'Bitcoin');
+end
+
+SCHEDULER.in '1' do |job|
+	do_job
+end
+
+SCHEDULER.cron '0 8-15 * * *', allow_overlapping: false do |job|
+	do_job
 end
