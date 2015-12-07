@@ -20,7 +20,7 @@ GEM
       thor (~> 0.18.1)
     eventmachine (1.0.8)
     execjs (2.0.2)
-    finance-ytd (1.1.0)
+    finance-ytd (1.1.1)
     hike (1.2.3)
     mini_portile2 (2.0.0)
     multi_json (1.11.2)
