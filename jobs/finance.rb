@@ -51,10 +51,6 @@ def do_job
 	cnn_etf('xbt', 'Bitcoin');
 end
 
-SCHEDULER.in '1' do |job|
-	do_job
-end
-
-SCHEDULER.cron '* 8-15 * * *', allow_overlapping: false do |job|
+SCHEDULER.cron '* * * * *', allow_overlapping: false do |job|
 	do_job
 end
