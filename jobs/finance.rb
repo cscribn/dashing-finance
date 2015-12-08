@@ -52,6 +52,6 @@ def do_job
 	cnn_etf('xbt', 'Bitcoin');
 end
 
-SCHEDULER.cron '* * * * *', allow_overlapping: false do |job|
+SCHEDULER.every '1m', :first_in => 0 do |job|
 	do_job
 end
