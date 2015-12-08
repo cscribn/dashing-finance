@@ -14,7 +14,6 @@ def cnn_market(symbol, friendly_name, moreinfo)
 end
 
 def calc_send(id, title, current, ytd_return, moreinfo)
-	puts "ytd_return: #{ytd_return}"
 	last = current / (1.0 + ytd_return)
 	status = 'up'
 
