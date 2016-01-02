@@ -29,11 +29,11 @@ end
 def do_job
     cnn('vt', 'World Stocks');
 
-    f = ApmexGoldFinanceYtd.new({ :symbol => 'Gold', :friendly_name => 'Gold', :decimal_places => 2, :price_last_year => 1063.70 })
+    f = ApmexGoldFinanceYtd.new({ :symbol => 'Gold', :friendly_name => 'Gold', :decimal_places => 2, :price_last_year => 1061.70 }) # apmex bid price on 1/1/16
     q = ApmexGoldQuoteOnly.new({ :symbol => 'oz', :friendly_name => 'Gold', :decimal_places => 2 })
     calc_send(f.symbol.downcase, f.friendly_name, q.quote, f.ytd_return, 'per oz')
 
-    f = ApmexSilverFinanceYtd.new({ :symbol => 'Silver', :friendly_name => 'Silver', :decimal_places => 2, :price_last_year => 13.92 })
+    f = ApmexSilverFinanceYtd.new({ :symbol => 'Silver', :friendly_name => 'Silver', :decimal_places => 2, :price_last_year => 13.82 }) # apmex bid price on 1/1/16
     q = ApmexSilverQuoteOnly.new({ :symbol => 'oz', :friendly_name => 'Silver', :decimal_places => 2 })
     calc_send(f.symbol.downcase, f.friendly_name, q.quote, f.ytd_return, 'per oz')
 
