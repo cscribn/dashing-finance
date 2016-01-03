@@ -41,7 +41,7 @@ def do_job
     cnn('vxus', 'Foreign Stocks');
     cnn_market('dow', 'Dow', 'DJIA');
     cnn('sgdm', 'Gold Miners');
-    cnn('vglt', 'Long-Term Government Bonds');
+    cnn('vglt', 'Long-Term Gov');
 
     f = BloombergFinanceYtd.new({ :symbol => 'USGG10YR:IND', :friendly_name => '10 Year', :decimal_places => 2 })
     q = BloombergQuoteOnly.new({ :symbol => 'USGG10YR:IND', :friendly_name => '10 Year', :decimal_places => 0 })
