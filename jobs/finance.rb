@@ -23,7 +23,7 @@ def calc_send(id, title, current, ytd_return, moreinfo)
 
     current = ('%.2f') % current
     current = current.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
-    send_event(id, { title: title, current: current, last: last, moreinfo: moreinfo, status: status })
+    send_event(id, { title: title, current: current.to_f, last: last.to_f, moreinfo: moreinfo, status: status })
 end
 
 def do_job
