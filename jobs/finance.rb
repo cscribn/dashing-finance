@@ -7,12 +7,6 @@ def cnn(symbol, friendly_name)
     calc_send(f.symbol, f.friendly_name, q.quote, f.ytd_return, f.symbol.upcase)
 end
 
-def cnn_market(symbol, friendly_name, moreinfo)
-    f = CnnMarketFinanceYtd.new({ :symbol => symbol, :friendly_name => friendly_name, :decimal_places => 2 })
-    q = CnnMarketQuoteOnly.new({ :symbol => symbol, :friendly_name => friendly_name, :decimal_places => 2 })
-    calc_send(f.symbol, f.friendly_name, q.quote, f.ytd_return, moreinfo)
-end
-
 def calc_send(id, title, current, ytd_return, moreinfo)
     last = current / (1.0 + ytd_return)
     status = 'up'
@@ -39,7 +33,6 @@ def do_job
 
     cnn('vti', 'US Stocks');
     cnn('vxus', 'Foreign Stocks');
-    cnn_market('dow', 'Dow', 'DJIA');
     cnn('sgdm', 'Gold Miners');
     cnn('vglt', 'Long-Term Gov');
 
